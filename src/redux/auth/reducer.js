@@ -1,9 +1,10 @@
+import { getCookie } from "../../utils/cookies";
 import * as types from "./types";
 
 const initialState = {
   loading: false,
   error: null,
-  token: null,
+  token: getCookie("authToken") || null,
   user: null,
   successMessage: "",
 };

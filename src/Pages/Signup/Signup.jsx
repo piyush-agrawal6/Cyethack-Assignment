@@ -1,5 +1,5 @@
-import React, { useDebugValue, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useDebugValue, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import bg from "../../assets/bg.avif";
@@ -10,8 +10,10 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { signup } from "../../redux/auth/action";
 
 const Signup = () => {
-  const { loading } = useSelector((store) => store.auth);
+  const { loading, token } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   let initialData = {
     name: "",
     email: "",
@@ -29,6 +31,12 @@ const Signup = () => {
     e.preventDefault();
     dispatch(signup(formData));
   };
+
+  useEffect(() => {
+    if (token) {
+      navigate("/dashboard");
+    }
+  }, [token, navigate]);
 
   return (
     <div className="login">
@@ -86,7 +94,7 @@ const Signup = () => {
                 </div>
               ) : null}
             </div>
-            <input type="submit" value="Login" />
+            <input type="submit" value="Signup" />
           </form>
         </div>
 

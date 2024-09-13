@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import bg from "../../assets/bg.avif";
@@ -12,9 +12,10 @@ import "./Login.css";
 import { login } from "../../redux/auth/action";
 
 const Login = () => {
-  const { loading } = useSelector((store) => store.auth);
+  const { loading, token } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
-  
+  const navigate = useNavigate();
+
   let initialData = {
     email: "",
     password: "",
@@ -31,6 +32,12 @@ const Login = () => {
     e.preventDefault();
     dispatch(login(formData));
   };
+
+  useEffect(() => {
+    if (token) {
+      navigate("/dashboard");
+    }
+  }, [token, navigate]);
 
   return (
     <div className="login">
