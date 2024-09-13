@@ -23,7 +23,7 @@ export default function authReducer(state = initialState, action) {
         token: action.payload.token,
         user: action.payload.user,
         error: null,
-        successMessage: action.payload.message,
+        successMessage: "Login successful",
       };
 
     case types.LOGIN_ERROR:
@@ -36,7 +36,7 @@ export default function authReducer(state = initialState, action) {
       };
 
     case types.AUTH_LOGOUT:
-      return { ...state, token: null, user: null, successMessage: "" };
+      return { ...state, token: null, user: null, successMessage: "User logged out" };
 
     default:
       return state;

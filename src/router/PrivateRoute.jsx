@@ -1,12 +1,13 @@
-import { useSelector } from "react-redux";
+import React from "react";
 import { Navigate } from "react-router-dom";
-import { getCookie } from "../utils/cookies";
+import { useSelector } from "react-redux";
 
 const PrivateRoute = ({ children }) => {
   const { token } = useSelector((store) => store.auth);
-  const savedToken = getCookie("authToken");
+  const isAuthenticated = Boolean(token);
 
-  return token || savedToken ? children : <Navigate to="/dashboard" />;
+  // Redirect to dashboard if already authenticated
+  return isAuthenticated ? <Navigate to="/dashboard" /> : children;
 };
 
 export default PrivateRoute;

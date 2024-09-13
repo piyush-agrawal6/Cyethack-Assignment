@@ -1,18 +1,20 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "../pages/Home/Home";
-import List from "../pages/List/List";
 import Login from "../pages/Login/Login";
 import Signup from "../pages/Signup/Signup";
 import PrivateRoute from "./PrivateRoute";
 import Navbar from "../components/Navbar/Navbar";
+import AuthChecker from "./AuthChecker";
+import List from "../Pages/List/List";
 
 const Router = () => {
   return (
     <BrowserRouter>
+      <AuthChecker />
       <Routes>
         <Route path="/" element={<Navbar />}>
-          <Route index element={<Home />} /> {/* Default route */}
+          <Route index element={<Home />} />
           <Route path="/dashboard" element={<Home />} />
           <Route path="*" element={<Home />} />
           <Route path="/list" element={<List />} />
