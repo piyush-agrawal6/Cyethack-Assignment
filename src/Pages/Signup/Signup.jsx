@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useDebugValue, useState } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import bg from "../../assets/bg.avif";
 import logo from "../../assets/logo.jpg";
 
 import { Spin } from "antd";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { signup } from "../../redux/auth/action";
 
 const Signup = () => {
   const { loading } = useSelector((store) => store.auth);
-
+  const dispatch = useDispatch();
   let initialData = {
     name: "",
     email: "",
@@ -21,15 +22,12 @@ const Signup = () => {
   const [showPass, setShowPass] = useState(false);
 
   const handleFormChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value.replace(/\s/g, ""),
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    dispatch(signup(formData));
   };
 
   return (

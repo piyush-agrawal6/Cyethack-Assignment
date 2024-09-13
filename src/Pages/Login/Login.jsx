@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import bg from "../../assets/bg.avif";
 import logo from "../../assets/logo.jpg";
@@ -9,10 +9,12 @@ import { Spin } from "antd";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 import "./Login.css";
+import { login } from "../../redux/auth/action";
 
 const Login = () => {
   const { loading } = useSelector((store) => store.auth);
-
+  const dispatch = useDispatch();
+  
   let initialData = {
     email: "",
     password: "",
@@ -22,15 +24,12 @@ const Login = () => {
   const [showPass, setShowPass] = useState(false);
 
   const handleFormChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value.replace(/\s/g, ""),
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value.trim() });
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    dispatch(login(formData));
   };
 
   return (
