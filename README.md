@@ -28,6 +28,11 @@ This project is a React JS application that demonstrates key front-end developme
 - Node.js (version 14 or later)
 - npm 
 
+## Deplyment
+
+- **Frontend** : Vercel - https://cyethackk.vercel.app
+- **Backend** : Render - https://cyethackbackend.onrender.com
+
 ### Setup
 
 1. **Clone the Repository**
