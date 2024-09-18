@@ -1,4 +1,4 @@
-# Frontend Developer Assignment - React/Next
+# Frontend Developer Assignment - MERN Stack, Cyethack
 
 ## Overview
 
