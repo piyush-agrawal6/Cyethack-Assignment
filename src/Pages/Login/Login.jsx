@@ -16,7 +16,7 @@ const Login = () => {
   const { loading, token } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log(token);
+  
   let initialData = {
     email: "",
     password: "",

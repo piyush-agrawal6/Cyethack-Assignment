@@ -1,11 +1,11 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Login from "../pages/Login/Login";
 import Signup from "../pages/Signup/Signup";
 import Navbar from "../components/Navbar/Navbar";
 import List from "../Pages/List/List";
 import ListDetails from "../pages/Details/ListDetails";
 import Dashboard from "../pages/Home/Home";
+import Login from "../pages/Login/Login";
 
 const Router = () => {
   return (
