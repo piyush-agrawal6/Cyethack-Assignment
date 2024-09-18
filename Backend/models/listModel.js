@@ -1,19 +1,13 @@
 const mongoose = require("mongoose");
 
 const listSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  description: String,
-  price: {
-    type: Number,
-    required: true,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
+  name: { type: String, required: true },
+  age: { type: Number, required: true },
+  description: { type: String, required: true },
+  address: { type: String, required: true },
+  tags: [String],
 });
 
-module.exports = mongoose.model("list", listSchema);
+const List = mongoose.model("List", listSchema);
+
+module.exports = List;

@@ -1,10 +1,19 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Space, Table, Tag } from "antd";
+import { Space, Table, Tag, Spin, Modal, notification } from "antd";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
+import { AiFillEye, AiFillEdit, AiFillDelete } from "react-icons/ai";
 import "./List.css";
+import {
+  fetchList,
+  editListItem,
+  deleteListItem,
+} from "../../redux/list/action";
 
-const columns = [
+const { confirm } = Modal;
+
+const columns = () => [
   {
     title: "Name",
     dataIndex: "name",
@@ -46,61 +55,42 @@ const columns = [
     key: "action",
     render: (_, record) => (
       <Space size="middle">
-        <a>Invite {record.name}</a>
-        <a>Delete</a>
+        <AiFillEye style={{ cursor: "pointer", color: "#1890ff" }} />
+        <AiFillEdit style={{ cursor: "pointer", color: "#faad14" }} />
+        <AiFillDelete style={{ cursor: "pointer", color: "#f5222d" }} />
       </Space>
     ),
   },
 ];
-const data = [
-  {
-    key: "1",
-    name: "John Brown",
-    age: 32,
-    address: "New York No. 1 Lake Park",
-    tags: ["nice", "developer"],
-  },
-  {
-    key: "2",
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
-    tags: ["loser"],
-  },
-  {
-    key: "3",
-    name: "Joe Black",
-    age: 32,
-    address: "Sydney No. 1 Lake Park",
-    tags: ["cool", "teacher"],
-  },
-  {
-    key: "3",
-    name: "Joe Black",
-    age: 32,
-    address: "Sydney No. 1 Lake Park",
-    tags: ["cool", "teacher"],
-  },
-  {
-    key: "3",
-    name: "Joe Black",
-    age: 32,
-    address: "Sydney No. 1 Lake Park",
-    tags: ["cool", "teacher"],
-  },
-];
+
 const List = () => {
+  const dispatch = useDispatch();
   const { token } = useSelector((store) => store.auth);
+  const { list, loading, error } = useSelector((store) => store.list);
   const navigate = useNavigate();
+
   useEffect(() => {
     if (!token) {
       navigate("/login");
+    } else {
+      dispatch(fetchList());
     }
-  }, [token, navigate]);
+  }, [token, dispatch, navigate]);
+
+  if (loading) {
+    return <Spin tip="Loading..." />;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div className="list">
-      <Table columns={columns} dataSource={data} />
+      <Table
+        columns={columns()}
+        dataSource={list.map((item) => ({ ...item, key: item._id }))}
+      />
     </div>
   );
 };
