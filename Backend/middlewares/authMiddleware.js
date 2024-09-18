@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 
+// Middleware to verify JWT token
 exports.verifyToken = async (req, res, next) => {
   const token = req.cookies.token;
   if (!token) return res.status(401).json({ message: "No token provided" });

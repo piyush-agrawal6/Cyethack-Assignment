@@ -1,4 +1,3 @@
-// actions.js
 import axios from "axios";
 import {
   FETCH_LIST_REQUEST,
@@ -23,7 +22,8 @@ export const fetchList = () => async (dispatch) => {
     dispatch({ type: FETCH_LIST_SUCCESS, payload: response.data });
   } catch (error) {
     if (error.response?.status === 401) {
-      await logout(); // Make sure to await the logout function
+      
+      await logout();
     }
     dispatch({ type: FETCH_LIST_FAILURE, payload: error.message });
   }
@@ -52,7 +52,7 @@ export const deleteListItem = (id) => async (dispatch) => {
     dispatch({ type: DELETE_ITEM_SUCCESS, payload: id });
   } catch (error) {
     if (error.response?.status === 401) {
-      await logout(); // Make sure to await the logout function
+      await logout();
     }
     dispatch({
       type: ITEM_ACTION_FAILURE,

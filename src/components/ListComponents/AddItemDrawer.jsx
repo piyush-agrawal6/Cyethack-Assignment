@@ -1,8 +1,38 @@
-import React from "react";
-import { Drawer, Form, Input, InputNumber, notification } from "antd";
+import React, { useState } from "react";
+import {
+  Drawer,
+  Form,
+  Input,
+  InputNumber,
+  notification,
+  Button,
+  Spin,
+} from "antd";
 
+// function for adding new item
 const AddItemDrawer = ({ open, onClose, onFinish }) => {
   const [form] = Form.useForm();
+  const [loading, setLoading] = useState(false); 
+
+  const handleFinish = async (values) => {
+    setLoading(true); 
+    try {
+      await onFinish(values); 
+      notification.success({
+        message: "Success",
+        description: "Item added successfully!",
+      });
+      form.resetFields(); 
+      onClose(); 
+    } catch (error) {
+      notification.error({
+        message: "Error",
+        description: "Failed to add item. Please try again.",
+      });
+    } finally {
+      setLoading(false); 
+    }
+  };
 
   return (
     <Drawer
@@ -12,7 +42,7 @@ const AddItemDrawer = ({ open, onClose, onFinish }) => {
       open={open}
       style={{ paddingBottom: 80 }}
     >
-      <Form form={form} layout="vertical" onFinish={onFinish}>
+      <Form form={form} layout="vertical" onFinish={handleFinish}>
         <Form.Item
           name="name"
           label="Name"
@@ -59,20 +89,20 @@ const AddItemDrawer = ({ open, onClose, onFinish }) => {
         </Form.Item>
 
         <Form.Item>
-          <button
-            type="submit"
+          <Button
+            type="primary"
+            htmlType="submit"
+            loading={loading} // Show loading spinner when loading is true
             style={{
               float: "right",
               backgroundColor: "#4CAF50",
+              borderColor: "#4CAF50",
               color: "white",
-              border: "none",
-              padding: "7px 15px",
-              cursor: "pointer",
               borderRadius: "4px",
             }}
           >
-            Add
-          </button>
+            {loading ? <Spin size="small" /> : "Add"}
+          </Button>
         </Form.Item>
       </Form>
     </Drawer>

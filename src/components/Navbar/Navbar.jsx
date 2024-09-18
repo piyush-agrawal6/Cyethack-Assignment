@@ -27,10 +27,6 @@ const Navbar = () => {
       localStorage.removeItem("key");
       sessionStorage.removeItem("items");
       sessionStorage.removeItem("item_id");
-      notification.success({
-        message: "Logged Out",
-        description: "You have been successfully logged out.",
-      });
       navigate("/login");
     });
   };
@@ -99,12 +95,12 @@ const Navbar = () => {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            height: "64px", // Ensure the height is fixed
-            position: "fixed", // Fix the position of the Header
+            height: "64px", 
+            position: "fixed", 
             top: 0,
-            left: collapsed ? 80 : 200, // Adjust for Sider
-            right: 0, // Ensure it stretches to the right edge
-            zIndex: 1, // Ensure it stays above Content
+            left: collapsed ? 80 : 200, 
+            right: 0,
+            zIndex: 1, 
           }}
         >
           <Button
@@ -128,8 +124,8 @@ const Navbar = () => {
         </Header>
         <Layout
           style={{
-            marginTop: "64px", // Offset for Header height
-            minHeight: "calc(100vh - 64px)", // Ensure the content area fits the rest of the viewport
+            marginTop: "64px", 
+            minHeight: "calc(100vh - 64px)", 
           }}
         >
           <Content
@@ -139,10 +135,10 @@ const Navbar = () => {
               minHeight: 280,
               background: colorBgContainer,
               borderRadius: borderRadiusLG,
-              overflowY: "auto", // Enable vertical scrolling for content
+              overflowY: "auto",
             }}
           >
-            <Outlet /> {/* Render the matched child routes here */}
+            <Outlet />
           </Content>
         </Layout>
       </Layout>

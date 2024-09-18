@@ -32,7 +32,7 @@ const List = () => {
     dispatch(addListItem({ ...values, tags: uniqueTags }))
       .then(() => {
         notification.success({ message: "Item added successfully" });
-        onClose(); // Close the drawer after successful submission
+        onClose(); 
       })
       .catch(() => {
         notification.error({ message: "Failed to add item" });

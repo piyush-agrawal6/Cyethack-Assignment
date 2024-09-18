@@ -70,15 +70,14 @@ const Dashboard = () => {
   };
 
   if (loading) {
-    return <Spin />;
+    return <Spin size="large" />;
   }
 
   if (error) {
     return <div>Error: {error}</div>;
   }
 
-  const { totalItems, averageAge, tagsCount, ageDistribution, tableData } =
-    data;
+  const { totalItems, averageAge, tagsCount, ageDistribution } = data;
 
   const tagBarChartData = Object.entries(tagsCount).map(([tag, count]) => ({
     tag,
@@ -90,23 +89,22 @@ const Dashboard = () => {
     count,
   }));
 
-
   return (
-    <div>
-      <Row gutter={16}>
-        <Col span={8}>
+    <div style={{ padding: "20px" }}>
+      <Row gutter={[16, 16]}>
+        <Col xs={24} sm={12} lg={8}>
           <Card>
             <Statistic title="Total Items" value={totalItems} />
           </Card>
         </Col>
-        <Col span={8}>
+        <Col xs={24} sm={12} lg={8}>
           <Card>
             <Statistic title="Average Age" value={averageAge.toFixed(2)} />
           </Card>
         </Col>
       </Row>
       <Divider />
-      <Row gutter={16}>
+      <Row gutter={[16, 16]}>
         <Col span={12}>
           <Card>
             <Title level={4}>Tags Distribution</Title>
@@ -123,6 +121,8 @@ const Dashboard = () => {
             )}
           </Card>
         </Col>
+      </Row>
+      <Row gutter={[16, 16]}>
         <Col span={12}>
           <Card>
             <Title level={4}>Age Distribution</Title>
