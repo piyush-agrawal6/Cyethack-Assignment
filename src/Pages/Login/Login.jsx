@@ -10,6 +10,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 import "./Login.css";
 import { login } from "../../redux/auth/action";
+import { checkAuth } from "../../utils/checkAuth";
 
 const Login = () => {
   const { loading, token } = useSelector((store) => store.auth);
@@ -34,8 +35,19 @@ const Login = () => {
   };
 
   useEffect(() => {
+    const checkIfAuthenticated = async () => {
+      const isAuthenticated = await checkAuth();
+      if (isAuthenticated) {
+        navigate(-1);
+      }
+    };
+
+    checkIfAuthenticated();
+  }, [navigate]);
+
+  useEffect(() => {
     if (token) {
-      navigate(-1);
+      navigate("/");
     }
   }, [token, navigate]);
 

@@ -9,7 +9,7 @@ authRoutes.post("/login", login);
 authRoutes.get("/logout", logout);
 
 authRoutes.get("/verify", verifyToken, (req, res) => {
-  res.status(200).json({ user: req.user, token: req.cookies.token });
+  res.status(200).json({ isAuthenticated: true });
 });
 
 module.exports = authRoutes;

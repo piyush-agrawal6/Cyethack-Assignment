@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import logo from "../../assets/logo.jpg";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
-import { Button, Layout, Menu, theme } from "antd";
+import { Button, Layout, Menu, notification, theme } from "antd";
 import { Link, Outlet, useNavigate } from "react-router-dom"; // Import useNavigate
 import {
   MdOutlineDashboard,
@@ -10,7 +10,6 @@ import {
 } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/auth/action";
-import userimg from "../../assets/user.png";
 
 const { Header, Sider, Content } = Layout;
 
@@ -26,6 +25,12 @@ const Navbar = () => {
   const handleLogout = () => {
     dispatch(logout()).then(() => {
       localStorage.removeItem("key");
+      sessionStorage.removeItem("items");
+      sessionStorage.removeItem("item_id");
+      notification.success({
+        message: "Logged Out",
+        description: "You have been successfully logged out.",
+      });
       navigate("/login");
     });
   };
@@ -80,8 +85,8 @@ const Navbar = () => {
             },
             {
               key: "3",
-              icon: <MdOutlineLogout />,
-              label: <p onClick={handleLogout}>Logout</p>, // Use handleLogout function
+              icon: <MdOutlineLogout onClick={handleLogout} />,
+              label: <p onClick={handleLogout}>Logout</p>, 
             },
           ]}
         />
@@ -119,22 +124,7 @@ const Navbar = () => {
               marginRight: "25px",
               gap: "10px",
             }}
-          >
-            <p style={{ fontWeight: "600" }}>{user?.email}</p>
-            <div
-              style={{
-                width: "37px",
-                height: "37px",
-              }}
-            >
-              <img
-                style={{
-                  width: "100%",
-                }}
-                src={userimg}
-              />
-            </div>
-          </div>
+          ></div>
         </Header>
         <Layout
           style={{

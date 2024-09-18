@@ -29,9 +29,12 @@ const ListDetails = () => {
         setLoading(false);
         return;
       }
-
+      const axiosInstance = axios.create({
+        baseURL: URL,
+        withCredentials: true, 
+      });
       try {
-        const response = await axios.get(`${URL}/list/get/${itemId}`);
+        const response = await axiosInstance.get(`/list/get/${itemId}`);
         const itemData = response.data;
 
         // Update cache with the new item

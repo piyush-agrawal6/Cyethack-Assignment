@@ -10,7 +10,6 @@ export const login = (data) => async (dispatch) => {
     const res = await axios.post(`${URL}/auth/login`, data, {
       withCredentials: true,
     });
-    console.log(res.data.user);
     dispatch({ type: types.LOGIN_SUCCESS, payload: res.data });
   } catch (error) {
     dispatch({
@@ -41,7 +40,6 @@ export const logout = () => async (dispatch) => {
   try {
     await axios.get(`${URL}/auth/logout`, { withCredentials: true });
     dispatch({ type: types.AUTH_LOGOUT });
-    removeCookie("authToken");
   } catch (error) {
     console.log("Error during logout", error);
   }

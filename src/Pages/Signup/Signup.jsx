@@ -8,6 +8,7 @@ import logo from "../../assets/logo.jpg";
 import { Spin } from "antd";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { signup } from "../../redux/auth/action";
+import { checkAuth } from "../../utils/checkAuth";
 
 const Signup = () => {
   const { loading, token } = useSelector((store) => store.auth);
@@ -33,8 +34,19 @@ const Signup = () => {
   };
 
   useEffect(() => {
+    const checkIfAuthenticated = async () => {
+      const isAuthenticated = await checkAuth();
+      if (isAuthenticated) {
+        navigate(-1);
+      }
+    };
+
+    checkIfAuthenticated();
+  }, [navigate]);
+
+  useEffect(() => {
     if (token) {
-      navigate("/dashboard");
+      navigate("/");
     }
   }, [token, navigate]);
 

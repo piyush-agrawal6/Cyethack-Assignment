@@ -1,12 +1,15 @@
-// listRoutes.js
 const express = require("express");
 const router = express.Router();
 const List = require("../models/listModel");
+const { verifyToken } = require("../middlewares/authMiddleware");
 
 // Create a new list item
-router.post("/add", async (req, res) => {
+router.post("/add", verifyToken, async (req, res) => {
   try {
-    const list = new List(req.body);
+    const { name, age, description, address, tags } = req.body;
+    const userId = req.user.id; // Get userId from the middleware
+
+    const list = new List({ name, age, description, address, tags, userId });
     await list.save();
     res.status(201).send(list);
   } catch (error) {
@@ -14,10 +17,10 @@ router.post("/add", async (req, res) => {
   }
 });
 
-// Fetch all list items
-router.get("/get", async (req, res) => {
+// Fetch all list items for the authenticated user
+router.get("/get", verifyToken, async (req, res) => {
   try {
-    const lists = await List.find();
+    const lists = await List.find(); // Fetch lists associated with the user
     res.status(200).send(lists);
   } catch (error) {
     res.status(500).send(error);
@@ -25,11 +28,13 @@ router.get("/get", async (req, res) => {
 });
 
 // Fetch a single list item by ID
-router.get("/get/:id", async (req, res) => {
+router.get("/get/:id", verifyToken, async (req, res) => {
   try {
-    const list = await List.findById(req.params.id);
+    const list = await List.findOne({ _id: req.params.id });
     if (!list) {
-      return res.status(404).send("List item not found");
+      return res
+        .status(404)
+        .send("List item not found or you do not have permission");
     }
     res.status(200).send(list);
   } catch (error) {
@@ -38,14 +43,16 @@ router.get("/get/:id", async (req, res) => {
 });
 
 // Update a list item by ID
-router.patch("/edit/:id", async (req, res) => {
+router.patch("/edit/:id", verifyToken, async (req, res) => {
   try {
-    const list = await List.findByIdAndUpdate(req.params.id, req.body, {
+    const list = await List.findOneAndUpdate({ _id: req.params.id }, req.body, {
       new: true,
       runValidators: true,
     });
     if (!list) {
-      return res.status(404).send("List item not found");
+      return res
+        .status(404)
+        .send("List item not found or you do not have permission");
     }
     res.status(200).send(list);
   } catch (error) {
@@ -54,11 +61,15 @@ router.patch("/edit/:id", async (req, res) => {
 });
 
 // Delete a list item by ID
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/delete/:id", verifyToken, async (req, res) => {
   try {
-    const list = await List.findByIdAndDelete(req.params.id);
+    const list = await List.findOneAndDelete({
+      _id: req.params.id,
+    });
     if (!list) {
-      return res.status(404).send("List item not found");
+      return res
+        .status(404)
+        .send("List item not found or you do not have permission");
     }
     res.status(200).send("List item deleted");
   } catch (error) {
