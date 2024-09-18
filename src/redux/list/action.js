@@ -7,6 +7,7 @@ import {
   ITEM_ACTION_FAILURE,
   EDIT_ITEM_SUCCESS,
   DELETE_ITEM_SUCCESS,
+  ADD_LIST_ITEM,
 } from "./types";
 
 export const fetchList = () => async (dispatch) => {
@@ -38,6 +39,18 @@ export const deleteListItem = (id) => async (dispatch) => {
   try {
     await axios.delete(`${URL}/list/delete/${id}`);
     dispatch({ type: DELETE_ITEM_SUCCESS, payload: id });
+  } catch (error) {
+    dispatch({
+      type: ITEM_ACTION_FAILURE,
+      payload: error.response?.data?.message || error.message,
+    });
+  }
+};
+
+export const addListItem = (newItem) => async (dispatch) => {
+  try {
+    const response = await axios.post(`${URL}/list/add`, newItem);
+    dispatch({ type: ADD_LIST_ITEM, payload: response.data });
   } catch (error) {
     dispatch({
       type: ITEM_ACTION_FAILURE,

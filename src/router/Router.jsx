@@ -7,6 +7,7 @@ import PrivateRoute from "./PrivateRoute";
 import Navbar from "../components/Navbar/Navbar";
 import AuthChecker from "./AuthChecker";
 import List from "../Pages/List/List";
+import ListDetails from "../pages/Details/ListDetails";
 
 const Router = () => {
   return (
@@ -18,6 +19,7 @@ const Router = () => {
           <Route path="/dashboard" element={<Home />} />
           <Route path="*" element={<Home />} />
           <Route path="/list" element={<List />} />
+          <Route path="/list/details" element={<ListDetails />} />
         </Route>
 
         <Route

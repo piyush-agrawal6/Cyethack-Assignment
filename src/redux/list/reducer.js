@@ -6,6 +6,7 @@ import {
   EDIT_ITEM_SUCCESS,
   DELETE_ITEM_SUCCESS,
   ITEM_ACTION_FAILURE,
+  ADD_LIST_ITEM,
 } from "./types";
 
 const initialState = {
@@ -46,6 +47,12 @@ const listReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         list: state.list.filter((item) => item._id !== action.payload),
+      };
+    case ADD_LIST_ITEM:
+      return {
+        ...state,
+        loading: false,
+        list: [...state.list, action.payload],
       };
     case ITEM_ACTION_FAILURE:
       return { ...state, loading: false, error: action.payload };
