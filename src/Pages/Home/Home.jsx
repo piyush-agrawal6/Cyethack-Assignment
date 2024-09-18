@@ -7,7 +7,7 @@ import { fetchList } from "../../redux/list/action";
 
 const { Title } = Typography;
 
-const Dashboard = () => {
+const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { list, loading, error } = useSelector((store) => store.list);
@@ -144,4 +144,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Home;
