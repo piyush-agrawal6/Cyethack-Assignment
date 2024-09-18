@@ -11,7 +11,12 @@ app.use(express.json());
 app.use(cookieParser());
 
 // CORS for all routes
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(
+  cors({
+    origin: ["https://cyethackk.vercel.app", "http://localhost:5173"],
+    credentials: true,
+  })
+);
 
 // Routes
 app.use("/auth", authRoutes);

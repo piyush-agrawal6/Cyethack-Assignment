@@ -12,7 +12,7 @@ import "./Login.css";
 import { login } from "../../redux/auth/action";
 import { checkAuth } from "../../utils/checkAuth";
 
-const Login = () => {
+const LoginPage = () => {
   const { loading, token } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -112,4 +112,4 @@ const Login = () => {
     </div>
   );
 };
-export default Login;
+export default LoginPage;
