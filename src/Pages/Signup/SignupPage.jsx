@@ -10,7 +10,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { signup } from "../../redux/auth/action";
 import { checkAuth } from "../../utils/checkAuth";
 
-const Signup = () => {
+const SignupPage = () => {
   const { loading, token } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -120,4 +120,4 @@ const Signup = () => {
     </div>
   );
 };
-export default Signup;
+export default SignupPage;

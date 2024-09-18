@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Spin, Card, notification } from "antd";
 import axios from "axios";
 
-const ListDetails = () => {
+const Details = () => {
   const [item, setItem] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -84,4 +84,4 @@ const ListDetails = () => {
   );
 };
 
-export default ListDetails;
+export default Details;

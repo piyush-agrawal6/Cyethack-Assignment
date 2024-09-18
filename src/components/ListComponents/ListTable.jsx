@@ -1,6 +1,6 @@
 import React from "react";
 import { Table, Space, Tag, Input } from "antd";
-import { AiFillDelete, AiFillEye } from "react-icons/ai";
+import {  AiFillEye } from "react-icons/ai";
 
 const columns = (handleView) => [
   {

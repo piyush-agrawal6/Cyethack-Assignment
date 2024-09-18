@@ -9,7 +9,7 @@ export const logout = async () => {
     sessionStorage.removeItem("items");
     sessionStorage.removeItem("item_id");
     showNotification("error", "Session expired", "Please refresh your session");
-    window.location.href = "/login";
+    // window.location.href = "/login";
   } catch (error) {
     console.log("Error during logout", error);
   }

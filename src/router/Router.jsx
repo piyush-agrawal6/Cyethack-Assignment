@@ -1,11 +1,12 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Navbar from "../components/Navbar/Navbar";
-import List from "../pages/List/List";
-import ListDetails from "../pages/Details/ListDetails";
-import Signup from "../pages/Signup/Signup";
+import SignupPage from "../Pages/Signup/SignupPage";
+import LoginPage from "../Pages/Login/LoginPage";
+import Details from "../Pages/Details/Details";
 import Home from "../pages/Home/Home";
-import LoginPage from "../pages/Login/Login";
+import List from "../pages/List/List";
+import Navbar from "../components/Navbar/Navbar";
+
 
 const Router = () => {
   return (
@@ -16,11 +17,11 @@ const Router = () => {
           <Route path="/dashboard" element={<Home />} />
           <Route path="*" element={<Home />} />
           <Route path="/list" element={<List />} />
-          <Route path="/list/details" element={<ListDetails />} />
+          <Route path="/list/details" element={<Details />} />
         </Route>
 
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/signup" element={<SignupPage />} />
       </Routes>
     </BrowserRouter>
   );
