@@ -18,10 +18,6 @@ const AddItemDrawer = ({ open, onClose, onFinish }) => {
     setLoading(true); 
     try {
       await onFinish(values); 
-      notification.success({
-        message: "Success",
-        description: "Item added successfully!",
-      });
       form.resetFields(); 
       onClose(); 
     } catch (error) {

@@ -1,6 +1,8 @@
 const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
 
+const isProduction = process.env.NODE_ENV === "production";
+
 // Function to create a JWT token for the user
 const createToken = (user) => {
   return jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
@@ -17,31 +19,27 @@ exports.register = async (req, res) => {
     const existingEmail = await User.findOne({ email });
     if (existingEmail) {
       return res
-        .status(409) // Conflict status code
+        .status(409)
         .json({ message: "User with this email already registered" });
     }
 
     // Create a new user
     const user = await User.create({ name, email, password });
-    const token = createToken(user); // Generate a token for the new user
+    const token = createToken(user);
 
     // Set a cookie with the JWT token
-    res.cookie("token", token, { httpOnly: true });
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: isProduction, // Use HTTPS only in production
+      sameSite: isProduction ? "None" : "Lax", // None for cross-origin requests
+    });
+
     res.status(201).json({
       message: "User registered successfully",
       user: { id: user._id, name: user.name, email: user.email },
       token,
     });
   } catch (error) {
-    if (error.code === 11000) {
-      // Handle duplicate key error (e.g., unique email constraint)
-      return res.status(409).json({
-        message: "Duplicate key error",
-        error: error.message,
-      });
-    }
-
-    // Handle other errors
     res.status(400).json({
       message: "Error registering user",
       error: error.message,
@@ -68,7 +66,11 @@ exports.login = async (req, res) => {
 
     // Generate a token for the authenticated user
     const token = createToken(user);
-    res.cookie("token", token, { httpOnly: true });
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: isProduction, // Use HTTPS only in production
+      sameSite: isProduction ? "None" : "Lax", // None for cross-origin requests
+    });
 
     res.status(200).json({
       message: "Login successful",
@@ -76,7 +78,6 @@ exports.login = async (req, res) => {
       token,
     });
   } catch (error) {
-    // Handle unexpected errors
     res
       .status(500)
       .json({ message: "Error during login", error: error.message });
@@ -86,6 +87,11 @@ exports.login = async (req, res) => {
 // Handler for user logout
 exports.logout = (req, res) => {
   // Clear the token cookie by setting its expiration date to a past date
-  res.cookie("token", "", { httpOnly: true, expires: new Date(0) });
+  res.cookie("token", "", {
+    httpOnly: true,
+    secure: isProduction, // Ensure secure cookie handling
+    sameSite: isProduction ? "None" : "Lax",
+    expires: new Date(0), // Expire immediately
+  });
   res.status(200).json({ message: "Logout successful" });
 };
