@@ -7,7 +7,7 @@ export const logout = async () => {
     localStorage.removeItem("key");
     sessionStorage.removeItem("items");
     sessionStorage.removeItem("item_id");
-    // window.location.href = "/login";
+    window.location.href = "/login";
   } catch (error) {
     console.log("Error during logout", error);
   }

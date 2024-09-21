@@ -27,7 +27,7 @@ export const fetchList = () => async (dispatch) => {
       error.response?.data || error.message
     );
     if (error.response?.status === 401) {
-      await logout(); // Uncommented to handle unauthorized access
+      await logout(); 
     }
     dispatch({ type: FETCH_LIST_FAILURE, payload: error.message });
   }

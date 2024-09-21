@@ -1,12 +1,11 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import SignupPage from "../Pages/Signup/SignupPage";
-import LoginPage from "../Pages/Login/LoginPage";
-import Details from "../Pages/Details/Details";
-import Home from "../pages/Home/Home";
-import List from "../pages/List/List";
-import Navbar from "../components/Navbar/Navbar";
-
+import SignupPage from "@/Pages/Signup/SignupPage";
+import LoginPage from "@/Pages/Login/LoginPage";
+import Details from "@/Pages/Details/Details";
+import List from "@/Pages/List/List";
+import Navbar from "@/components/Navbar/Navbar";
+import Home from "@/Pages/Home/Home";
 
 const Router = () => {
   return (
