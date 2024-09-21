@@ -1,5 +1,5 @@
 
-# Assignment Explanation - Video, 
+# Assignment Explanation - [Video Link](https://drive.google.com/file/d/17cD5F8E-DIOawg2tAiuqMB7FduVMPLg-/view?usp=sharing)
 
 # Frontend Developer Assignment - MERN Stack, Cyethack
 
