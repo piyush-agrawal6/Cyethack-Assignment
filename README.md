@@ -30,8 +30,7 @@ This project is a React JS application that demonstrates key front-end developme
 
 ## Deplyment
 
-- **Frontend** : Vercel - https://cyethackk.vercel.app
-- **Backend** : Render - https://cyethackbackend.onrender.com
+- **Backend** : Render - https://cyethackbackend.onrender.com ,only works locally or in Postman (Due to free deployment)
 
 ### Setup
 
