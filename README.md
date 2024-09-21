@@ -1,7 +1,5 @@
 
-Assignment Explanation - Video, 
-
-
+# Assignment Explanation - Video, 
 
 # Frontend Developer Assignment - MERN Stack, Cyethack
 
