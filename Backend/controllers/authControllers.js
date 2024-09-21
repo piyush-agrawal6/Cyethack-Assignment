@@ -3,10 +3,9 @@ const jwt = require("jsonwebtoken");
 
 const isProduction = process.env.NODE_ENV === "production";
 
-// Function to create a JWT token for the user
 const createToken = (user) => {
   return jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-    expiresIn: "1h", // Token expires in 1 hour
+    expiresIn: "1h", 
   });
 };
 
@@ -52,24 +51,21 @@ exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Find a user with the given email
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(401).json({ message: "Invalid email or password" });
     }
 
-    // Check if the provided password matches the stored password
     const isMatch = await user.matchPassword(password);
     if (!isMatch) {
       return res.status(401).json({ message: "Invalid email or password" });
     }
 
-    // Generate a token for the authenticated user
     const token = createToken(user);
     res.cookie("token", token, {
       httpOnly: true,
-      secure: isProduction, // Use HTTPS only in production
-      sameSite: isProduction ? "None" : "Lax", // None for cross-origin requests
+      secure: isProduction,
+      sameSite: isProduction ? "None" : "Lax", 
     });
 
     res.status(200).json({
